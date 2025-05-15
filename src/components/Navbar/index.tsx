@@ -1,12 +1,12 @@
 import Link from "next/link";
 
-const Navbar = () => {
+const Navbar = ({ abrirModalCadastro, abrirModalLogin }: any) => {
   return (
     <nav className="p-4">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-lg font-bold">Bytebank</h1>
 
-        <ul className="flex space-x-6 text-white">
+        <ul className="flex space-x-6">
           <li>
             <Link href="/">
               Sobre
@@ -20,12 +20,12 @@ const Navbar = () => {
         </ul>
 
         <div className="space-x-4">
-          {/* <button className="text-white px-4 py-2 rounded-md hover:bg-green-600 transition">
+          <button className="text-white px-4 py-2 rounded-md hover:bg-green-600 transition" onClick={abrirModalCadastro}>
             Abrir minha conta
           </button>
-          <button className="border px-4 py-2 rounded-md hover:bg-green-500 hover:text-white transition">
+          <button className="border px-4 py-2 rounded-md hover:bg-green-500 hover:text-white transition" onClick={abrirModalLogin}>
             Já tenho conta
-          </button> */}
+          </button>
         </div>
       </div>
     </nav>
