@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body cz-shortcut-listen="true">
-        <div className="padding">
+        <div className="md:px-48">
           {children}
         </div>
       </body>
