@@ -123,9 +123,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
-            {/* FOOTER */}
-            <Footer />
         </div>
     );
 }
