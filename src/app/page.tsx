@@ -4,64 +4,128 @@ import Cadastrar from "../components/Modal/cadastro";
 import Login from "../components/Modal/login";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer"; // Adicionamos o Footer
+import Image from "next/image";
+import Ilustracao from "../resources/Ilustração Banner.png";
+import Dispositivos from "../resources/Ícone Dispositivos.png";
+import Pontos from "../resources/Ícone Pontos.png";
+import Presente from "../resources/Ícone Presente.png";
+import Saque from "../resources/Ícone Saque.png";
 
 export default function Home() {
-  const [isOpenCadastro, setIsOpenCadastro] = useState(false);
-  const [isOpenLogin, setIsOpenLogin] = useState(false);
+    const [isOpenCadastro, setIsOpenCadastro] = useState(false);
+    const [isOpenLogin, setIsOpenLogin] = useState(false);
 
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+    const scrollToSection = (id: string) => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
-  return (
-    <div className="flex flex-col w-full">
-      <Navbar
-        abrirModalCadastro={() => setIsOpenCadastro(true)}
-        abrirModalLogin={() => setIsOpenLogin(true)}
-        rolarPara={scrollToSection}
-      />
+    return (
+        <div className="flex flex-col w-full">
+            <Navbar
+                abrirModalCadastro={() => setIsOpenCadastro(true)}
+                abrirModalLogin={() => setIsOpenLogin(true)}
+                rolarPara={scrollToSection}
+            />
 
-      {isOpenCadastro && (
-        <Cadastrar fecharModal={() => setIsOpenCadastro(false)} />
-      )}
-      {isOpenLogin && <Login fecharModal={() => setIsOpenLogin(false)} />}
+            {isOpenCadastro && (
+                <Cadastrar fecharModal={() => setIsOpenCadastro(false)} />
+            )}
+            {isOpenLogin && <Login fecharModal={() => setIsOpenLogin(false)} />}
 
-      {/* SESSÃO: SOBRE */}
-      <section id="sobre" className="py-20 px-6 text-center">
-        <h2 className="text-3xl font-bold mb-6">Sobre o ByteBank</h2>
-        <p className="max-w-2xl mx-auto text-lg">
-          Experimente mais liberdade no controle da sua vida financeira. Crie sua conta com a gente!
-        </p>
-      </section>
+            <section
+                id="sobre"
+                className="flex flex-col-reverse md:flex-row md:py-20 md:px-16 p-6 text-start items-center md:gap-32"
+            >
+                <h1 className="text-3xl md:text-4xl text-cyan-900 font-bold mb-6">
+                    Experimente mais liberdade no controle da sua vida
+                    financeira. Crie sua conta com a gente!
+                </h1>
+                <Image src={Ilustracao} alt="Logo" width={662} height={412} />
+            </section>
 
-      {/* SESSÃO: SERVIÇOS */}
-      <section id="servicos" className="py-20 px-6 text-center">
-        <h2 className="text-3xl font-bold mb-10">Vantagens do nosso banco</h2>
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="p-6 border rounded-xl shadow">
-            <h3 className="text-xl font-semibold mb-2">Conta e cartão gratuitos</h3>
-            <p>Sem custo fixo e sem tarifa de manutenção.</p>
-          </div>
-          <div className="p-6 border rounded-xl shadow">
-            <h3 className="text-xl font-semibold mb-2">Saques sem custo</h3>
-            <p>4 saques gratuitos por mês em qualquer Banco 24h.</p>
-          </div>
-          <div className="p-6 border rounded-xl shadow">
-            <h3 className="text-xl font-semibold mb-2">Programa de pontos</h3>
-            <p>Acumule pontos no crédito sem pagar mensalidade.</p>
-          </div>
-          <div className="p-6 border rounded-xl shadow">
-            <h3 className="text-xl font-semibold mb-2">Seguro Dispositivos</h3>
-            <p>Proteção para computador e celular por uma mensalidade simbólica.</p>
-          </div>
+            {/* SESSÃO: SOBRE */}
+            <section
+                id="sobre"
+                className="md:py-20 md:px-16 p-6  text-center text-cyan-900"
+            >
+                <h2 className="text-3xl md:text-4xl font-bold mb-6">Sobre o ByteBank</h2>
+                <p className="max-w-3xl mx-auto text-lg">
+                    O Bytebank é uma solução digital moderna que nasceu com o
+                    objetivo de tornar a gestão financeira mais simples, segura
+                    e acessível para todos. Com tecnologia de ponta e foco na
+                    experiência do usuário, oferecemos uma plataforma intuitiva
+                    para abrir contas, realizar transações e acompanhar suas
+                    finanças de forma descomplicada — tudo em um só lugar.
+                </p>
+            </section>
+
+            {/* SESSÃO: SERVIÇOS */}
+            <section
+                id="servicos"
+                className="md:py-20 md:px-16 p-6  text-center text-cyan-900"
+            >
+                <h2 className="text-3xl md:text-4xl font-bold mb-10">
+                    Vantagens do nosso banco
+                </h2>
+                <div className="flex flex-row mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="flex flex-col justify-center items-center gap-2">
+                        <Image
+                            src={Presente}
+                            alt="Logo"
+                            width={73}
+                            height={56}
+                        />
+                        <h3 className="text-xl text-amber-500 font-semibold">
+                            Conta e cartão gratuitos
+                        </h3>
+                        <p>
+                            Isso mesmo, nossa conta é digital, sem custo fixo e
+                            mais que isso: sem tarifa de manutenção.
+                        </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-2">
+                        <Image src={Saque} alt="Logo" width={73} height={56} />
+                        <h3 className="text-xl text-amber-500 text-xl font-semibold">
+                            Saques sem custo
+                        </h3>
+                        <p>
+                            Você pode sacar gratuitamente 4x por mês de qualquer
+                            Banco 24h.
+                        </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-2">
+                        <Image src={Pontos} alt="Logo" width={73} height={56} />
+                        <h3 className="text-xl text-amber-500 text-xl font-semibold">
+                            Programa de pontos
+                        </h3>
+                        <p>
+                            Você pode acumular pontos com suas compras no
+                            crédito sem pagar mensalidade!
+                        </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-2">
+                        <Image
+                            src={Dispositivos}
+                            alt="Logo"
+                            width={73}
+                            height={56}
+                        />
+                        <h3 className="text-xl text-amber-500 text-xl font-semibold">
+                            Seguro Dispositivos
+                        </h3>
+                        <p>
+                            Seus dispositivos móveis (computador e laptop)
+                            protegidos por uma mensalidade simbólica.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* FOOTER */}
+            <Footer />
         </div>
-      </section>
-
-      {/* FOOTER */}
-      <Footer />
-    </div>
-  );
+    );
 }
