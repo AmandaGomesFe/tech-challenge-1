@@ -4,3 +4,7 @@ body {
     background: linear-gradient(180deg,#3cd0a3 0%, #dee9ea 50%, #dee9ea 100%);
     min-height: 100vh;
 }
+
+.padding {
+    padding: 0px 100px;
+}
