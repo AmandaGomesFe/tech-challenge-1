@@ -3,7 +3,6 @@ import { useState } from "react";
 import Cadastrar from "../components/Modal/cadastro";
 import Login from "../components/Modal/login";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer"; // Adicionamos o Footer
 import Image from "next/image";
 import Ilustracao from "../resources/Ilustração Banner.png";
 import Dispositivos from "../resources/Ícone Dispositivos.png";
