@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
+import Configuracao from "../configuracao/page";
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
@@ -83,7 +84,7 @@ export default function App() {
               <button
                 className="flex items-center rounded-md w-full px-4 py-2 hover:bg-gray-300 text-sm text-gray-700"
                 onClick={() => {
-                  alert("Abrir configurações");
+                  setMenuSelecionado('configuracao');
                   setMenuUserAberto(false);
                 }}
               >
@@ -123,16 +124,18 @@ export default function App() {
           </ul>
         </nav>
 
-        {/* Conteúdo principal */}
+      {menuSelecionado !== 'configuracao' ? <>
         <main className="flex-grow bg-white rounded-lg shadow p-4 min-h-[300px]">
           {renderConteudoMeio()}
         </main>
-
-        {/* Extrato */}
         <aside className="hidden md:block bg-white w-64 rounded-lg shadow p-4 min-h-[300px]">
           <h2 className="font-semibold mb-4">Extrato</h2>
           <p>Aqui vai o extrato bancário.</p>
         </aside>
+      </>
+        : <main className="flex-grow rounded-lg p-4 min-h-[300px]">
+          <Configuracao/>
+        </main>}
       </div>
 
       {/* Menu completo mobile (menu lateral + configs + logout) */}
@@ -163,7 +166,7 @@ export default function App() {
           <button
             className="flex items-center rounded-md w-full px-4 py-2 hover:bg-gray-200 text-sm text-gray-700 mb-2"
             onClick={() => {
-              alert("Abrir configurações");
+              setMenuSelecionado('configuracao');
               setMenuMobileAberto(false);
             }}
           >
