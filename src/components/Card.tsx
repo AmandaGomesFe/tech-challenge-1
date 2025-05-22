@@ -4,7 +4,7 @@ import pixel4 from '../resources/Pixels3.png';
 
 const Card = ({children, background, titulo}: any) => {
   return (
-    <div className={`relative bg-white bg-cover bg-center rounded-lg flex flex-col justify-between p-4 overflow-hidden`} style={{backgroundColor: background}}>
+    <div className={`relative bg-white bg-cover bg-center rounded-lg flex flex-col justify-between p-4 pt-0 overflow-hidden`} style={{backgroundColor: background}}>
         <h1 className="text-2xl z-10 font-bold mb-6 m-6">{ titulo }</h1>
         <div className="relative z-10 text-black">
             {children}

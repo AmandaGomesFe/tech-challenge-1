@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body cz-shortcut-listen="true">
-        <div className="md:px-48">
+        <div className="md:px-40 px-0">
           {children}
         </div>
         <Footer />

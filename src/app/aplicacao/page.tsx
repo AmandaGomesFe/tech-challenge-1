@@ -4,6 +4,8 @@ import { useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
 import Configuracao from "../configuracao/page";
+import Extrato from "@/components/Extrato";
+import Transferencia from "../transferencia/page";
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
@@ -28,7 +30,7 @@ export default function App() {
           </>
         );
       case "transferencias":
-        return <div className="p-4">Transferências</div>;
+        return <div><Transferencia/></div>;
       case "investimentos":
         return <div className="p-4">Investimentos</div>;
       case "cartoes":
@@ -125,13 +127,10 @@ export default function App() {
         </nav>
 
       {menuSelecionado !== 'configuracao' ? <>
-        <main className="flex-grow bg-white rounded-lg shadow p-4 min-h-[300px]">
+        <main className="flex-grow rounded-lg p-4 pt-0 min-h-[300px]">
           {renderConteudoMeio()}
         </main>
-        <aside className="hidden md:block bg-white w-64 rounded-lg shadow p-4 min-h-[300px]">
-          <h2 className="font-semibold mb-4">Extrato</h2>
-          <p>Aqui vai o extrato bancário.</p>
-        </aside>
+        <Extrato/>
       </>
         : <main className="flex-grow rounded-lg p-4 min-h-[300px]">
           <Configuracao/>
