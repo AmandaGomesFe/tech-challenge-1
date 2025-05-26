@@ -6,8 +6,8 @@ import { FaCog, FaSignOutAlt } from "react-icons/fa";
 import Configuracao from "../configuracao/page";
 import Extrato from "@/components/Extrato";
 import Transferencia from "../transferencia/page";
-import Saldo from "../inicio/Saldo";
-import Cartoes from "../inicio/Cartoes";
+import Saldo from "../inicio/page";
+import Cartoes from "../cartoes/page";
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
@@ -28,7 +28,6 @@ export default function App() {
         return (
           <div className="flex flex-col gap-6 md:gap-10">
             <div><Saldo/></div>
-            <div><Cartoes/></div>
           </div>
         );
       case "transferencias":
@@ -36,7 +35,7 @@ export default function App() {
       case "investimentos":
         return <div className="p-4">Investimentos</div>;
       case "cartoes":
-        return <div className="p-4">Cartões</div>;
+        return <div><Cartoes/></div>
       case "outros":
         return <div className="p-4">Outros Serviços</div>;
       case "extrato":
@@ -131,7 +130,7 @@ export default function App() {
         </nav>
 
       {menuSelecionado !== 'configuracao' ? <>
-        <main className="flex-grow rounded-lg p-1 md:p-4 pt-0 min-h-[300px] overflow-hidden">
+        <main className="flex-grow rounded-lg min-h-[300px] overflow-hidden">
           {renderConteudoMeio()}
         </main>
         <aside className="hidden md:block w-64">
