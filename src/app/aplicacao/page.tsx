@@ -6,8 +6,9 @@ import { FaCog, FaSignOutAlt } from "react-icons/fa";
 import Configuracao from "../configuracao/page";
 import Extrato from "@/components/Extrato";
 import Transferencia from "../transferencia/page";
-import Saldo from "../inicio/page";
+import Saldo from "./Saldo";
 import Cartoes from "../cartoes/page";
+import Investimentos from "../investimentos/page";
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
@@ -18,24 +19,17 @@ export default function App() {
     { id: "inicio", label: "Início" },
     { id: "transferencias", label: "Transferências" },
     { id: "investimentos", label: "Investimentos" },
-    { id: "cartoes", label: "Cartões" },
     { id: "outros", label: "Outros Serviços" },
   ];
 
   const renderConteudoMeio = () => {
     switch (menuSelecionado) {
       case "inicio":
-        return (
-          <div className="flex flex-col gap-6 md:gap-10">
-            <div><Saldo/></div>
-          </div>
-        );
+        return <div><Cartoes/></div>;
       case "transferencias":
         return <div><Transferencia/></div>;
       case "investimentos":
-        return <div className="p-4">Investimentos</div>;
-      case "cartoes":
-        return <div><Cartoes/></div>
+        return <div><Investimentos/></div>;
       case "outros":
         return <div className="p-4">Outros Serviços</div>;
       case "extrato":
@@ -131,6 +125,7 @@ export default function App() {
 
       {menuSelecionado !== 'configuracao' ? <>
         <main className="flex-grow rounded-lg min-h-[300px] overflow-hidden">
+          <Saldo/>
           {renderConteudoMeio()}
         </main>
         <aside className="hidden md:block w-64">

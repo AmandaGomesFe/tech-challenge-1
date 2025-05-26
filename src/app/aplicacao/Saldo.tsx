@@ -9,7 +9,7 @@ export default function Saldo() {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl p-6">
+    <div className="w-full bg-white rounded-xl p-6 mb-6">
       <div className="flex justify-between items-start">
         <div>
           <h2 className="text-lg md:text-2xl text-cyan-900 mb-2">Saldo</h2>
