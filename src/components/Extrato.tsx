@@ -19,7 +19,7 @@ const Extrato = ({children, background, titulo}: any) => {
     }, {});
 
     return (
-        <aside className="hidden md:block bg-white w-64 rounded-lg shadow p-4 min-h-[300px]">
+        <aside className="bg-white w-full rounded-lg shadow p-4 min-h-[300px]">
           <h2 className="text-2xl text-cyan-900 font-bold mb-6">Extrato</h2>
           <div>
             {Object.keys(transacoesPorMes).map((mes) => (

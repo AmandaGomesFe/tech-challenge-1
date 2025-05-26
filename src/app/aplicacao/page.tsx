@@ -6,6 +6,8 @@ import { FaCog, FaSignOutAlt } from "react-icons/fa";
 import Configuracao from "../configuracao/page";
 import Extrato from "@/components/Extrato";
 import Transferencia from "../transferencia/page";
+import Saldo from "../../components/Saldo";
+import Cartoes from "../../components/Cartoes";
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
@@ -24,10 +26,10 @@ export default function App() {
     switch (menuSelecionado) {
       case "inicio":
         return (
-          <>
-            <section className="mb-4 p-4 bg-cyan-100 rounded">Saldo</section>
-            <section className="p-4 bg-cyan-200 rounded">Cartões</section>
-          </>
+          <div className="flex flex-col gap-6 md:gap-10">
+            <div><Saldo/></div>
+            <div><Cartoes/></div>
+          </div>
         );
       case "transferencias":
         return <div><Transferencia/></div>;
@@ -37,6 +39,8 @@ export default function App() {
         return <div className="p-4">Cartões</div>;
       case "outros":
         return <div className="p-4">Outros Serviços</div>;
+      case "extrato":
+        return <div><Extrato/></div>;
       default:
         return null;
     }
@@ -127,10 +131,12 @@ export default function App() {
         </nav>
 
       {menuSelecionado !== 'configuracao' ? <>
-        <main className="flex-grow rounded-lg p-4 pt-0 min-h-[300px]">
+        <main className="flex-grow rounded-lg p-1 md:p-4 pt-0 min-h-[300px] overflow-hidden">
           {renderConteudoMeio()}
         </main>
-        <Extrato/>
+        <aside className="hidden md:block w-64">
+          <Extrato/>
+        </aside>
       </>
         : <main className="flex-grow rounded-lg p-4 min-h-[300px]">
           <Configuracao/>
@@ -157,6 +163,21 @@ export default function App() {
                 {label}
               </li>
             ))}
+
+            {/* Extrato - só no mobile */}
+            <li
+              className={`cursor-pointer p-3 rounded mb-2 text-cyan-900 ${
+                menuSelecionado === "extrato"
+                  ? "bg-amber-500 text-white"
+                  : "hover:bg-cyan-100"
+              }`}
+              onClick={() => {
+                setMenuSelecionado("extrato");
+                setMenuMobileAberto(false);
+              }}
+            >
+              Extrato
+            </li>
           </ul>
 
           <hr className="my-3" />
