@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import pixelsImg from "@/resources/Pixels3Colorido.png";
+import Card from "@/components/Card";
 
 // Modal simples
 const Modal = ({ isOpen, onClose, title, children }: any) => {
@@ -42,10 +43,8 @@ export default function Cartoes() {
   };
 
   return (
-    <div className="relative bg-gray-300 rounded-xl p-6 overflow-hidden">
+    <Card background={'#CBCBCB'} titulo={'Meus cartões'}>
       <div className="relative z-10">
-        <h2 className="text-2xl font-bold mb-6">Meus cartões</h2>
-
         {/* Cartão Físico */}
         <h2 className="text-lg text-gray-900 mb-6">Cartão Físico</h2>
         <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
@@ -107,11 +106,6 @@ export default function Cartoes() {
         </div>
       </div>
 
-      {/* Background de pixels */}
-      <div className="w-40 h-40 absolute top-0 right-0 opacity-40">
-        <Image src={pixelsImg} alt="Pixels" className="w-full h-full object-contain" />
-      </div>
-
       {/* Modal */}
       <Modal
         isOpen={modalAberto}
@@ -153,6 +147,6 @@ export default function Cartoes() {
           </div>
         )}
       </Modal>
-    </div>
+    </Card>
   );
 }

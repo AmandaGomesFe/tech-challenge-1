@@ -6,8 +6,8 @@ import { FaCog, FaSignOutAlt } from "react-icons/fa";
 import Configuracao from "../configuracao/page";
 import Extrato from "@/components/Extrato";
 import Transferencia from "../transferencia/page";
-import Saldo from "../../components/Saldo";
-import Cartoes from "../../components/Cartoes";
+import Saldo from "../inicio/Saldo";
+import Cartoes from "../inicio/Cartoes";
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
