@@ -9,6 +9,7 @@ import Transferencia from "../transferencia/page";
 import Saldo from "./Saldo";
 import Cartoes from "../cartoes/page";
 import Investimentos from "../investimentos/page";
+import OutrosServicos from "../outros-servicos/page";
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
@@ -31,7 +32,7 @@ export default function App() {
       case "investimentos":
         return <div><Investimentos/></div>;
       case "outros":
-        return <div className="p-4">Outros Serviços</div>;
+        return <div><OutrosServicos/></div>;
       case "extrato":
         return <div><Extrato/></div>;
       default:
@@ -102,10 +103,20 @@ export default function App() {
         </div>
       </nav>
 
+      {/* Menu superior (só aparece em tablets) */}
+      <nav className="hidden md:flex lg:hidden w-full bg-transparent p-4 justify-center gap-6">
+        {menus.map(({ id, label }) => (
+          <button key={id} className={`px-4 py-2 ${menuSelecionado === id ? "border-b-2 border-cyan-900 text-cyan-900" : "hover:bg-cyan-100"}`} 
+            onClick={() => setMenuSelecionado(id)}>
+            {label}
+          </button>
+        ))}
+      </nav>
+
       {/* Container principal */}
       <div className="flex flex-1 gap-6 p-4">
         {/* Menu lateral desktop */}
-        <nav className="hidden md:block bg-white w-64 rounded-lg shadow p-4 text-cyan-900">
+        <nav className="hidden lg:block bg-white w-64 rounded-lg shadow p-4 text-cyan-900">
           <ul>
             {menus.map(({ id, label }) => (
               <li
@@ -132,7 +143,7 @@ export default function App() {
           <Extrato/>
         </aside>
       </>
-        : <main className="flex-grow rounded-lg p-4 min-h-[300px]">
+        : <main className="flex-grow rounded-lg min-h-[300px]">
           <Configuracao/>
         </main>}
       </div>

@@ -1,17 +1,13 @@
 
 const Extrato = ({children, background, titulo}: any) => {
     const transacoes = [
-        { mes: "Setembro", tipo: "Transferência", valor: "-36,00", data: "04/08" },
-        { mes: "Setembro", tipo: "Transferência", valor: "-36,00", data: "04/08" },
-        { mes: "Setembro", tipo: "Depósito", valor: "38,00", data: "04/08" },
-        { mes: "Outubro", tipo: "Pagamento", valor: "-50,00", data: "05/10" },
-        { mes: "Outubro", tipo: "Depósito", valor: "120,00", data: "05/09" },
-        { mes: "Novembro", tipo: "Transferência", valor: "-20,00", data: "06/03" },
-        { mes: "Novembro", tipo: "Depósito", valor: "75,00", data: "06/01" },
-        { mes: "Dezembro", tipo: "Transferência", valor: "-30,00", data: "07/15" },
-        { mes: "Dezembro", tipo: "Depósito", valor: "200,00", data: "07/12" },
-        { mes: "Setembro", tipo: "Transferência", valor: "-36,00", data: "04/08" },
-    ];
+    { "mes": "Janeiro", "tipo": "Depósito", "valor": "75,00", "data": "06/01" },
+    { "mes": "Janeiro", "tipo": "Depósito", "valor": "75,00", "data": "10/01" },
+    { "mes": "Abril", "tipo": "Transferência", "valor": "-36,00", "data": "04/04" },
+    { "mes": "Abril", "tipo": "Transferência", "valor": "-200,00", "data": "20/04" },
+    { "mes": "Março", "tipo": "Transferência", "valor": "-20,00", "data": "06/03" },
+    
+  ]
     const transacoesPorMes = transacoes.reduce((acc: any, transacao: any) => {
         acc[transacao.mes] = acc[transacao.mes] || [];
         acc[transacao.mes].push(transacao);

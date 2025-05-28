@@ -1,42 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import imagem from "@/resources/Pixels3Colorido.png";
 import { NumericFormat } from "react-number-format";
+import { Box, Modal } from "@mui/material";
 
 export default function Transferencia() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [transferType, setTransferType] = useState("");
-  const [date, setDate] = useState("");
+  const [tipoTransferencia, setTipoTransferencia] = useState("");
+  const [data, setData] = useState("");
   const [pixKey, setPixKey] = useState("");
-  const [amount, setAmount] = useState("");
-  const [transacoes, setTransacoes] = useState([
-    { mes: "Dezembro", tipo: "PIX", valor: "30,00", data: "07/15" },
-    { mes: "Dezembro", tipo: "Depósito", valor: "200,00", data: "07/12" },
-    { mes: "Setembro", tipo: "Transferência", valor: "36,00", data: "04/08" },
-  ]);
+  const [valor, setValor] = useState("");
+  const isDisabled =
+    !tipoTransferencia ||
+    !data ||
+    !valor ||
+    (tipoTransferencia === "PIX" && !pixKey);
+  const [transacoes, setTransacoes] = useState<Array<any>>([]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log({ transferType, date, pixKey, amount });
-    
-    // Reseta o estado após a edição ou criação
+    console.log({ tipoTransferencia, data, pixKey, valor });
+
+    const meses = [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+
+    const mesNome = data ? meses[new Date(data).getMonth()] : "";
+
+    const novaTransacao = {
+      tipo: tipoTransferencia,
+      valor: valor,
+      data: data,
+      mes: mesNome,
+      pixKey: pixKey ? pixKey : null,
+    };
+
+    setTransacoes((prevTransacoes) => [...prevTransacoes, novaTransacao]);
     setIsEditing(false);
-    setTransferType("");
-    setDate("");
+    setTipoTransferencia("");
+    setData("");
     setPixKey("");
-    setAmount("");
+    setValor("");
+
+    handleOpen();
   };
 
   const handleEdit = (transacao: any, index: number) => {
-    setTransferType(transacao.tipo);
-    setDate(transacao.data);
+    setTipoTransferencia(transacao.tipo);
+    setData(transacao.data);
     setPixKey(transacao.tipo === "PIX" ? "Chave do PIX" : "");
-    setAmount(transacao.valor.replace(",", "."));
+    setValor(transacao.valor);
     setIsEditing(true);
 
-    // Faz rolar para o formulário
     document.getElementById("formulario")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -52,19 +73,26 @@ export default function Transferencia() {
 
   return (
     <div>
-      {/* Formulário */}
       <div className="relative bg-white rounded-lg flex flex-col justify-between p-4 pt-0 overflow-hidden mb-6">
-        <h1 id="formulario" className="text-2xl z-10 text-cyan-900 font-bold mb-6 m-6">
+        <h1
+          id="formulario"
+          className="text-2xl z-10 text-cyan-900 font-bold mb-6 m-6"
+        >
           {isEditing ? "Editar Transferência" : "Nova Transferência"}
         </h1>
         <div className="relative z-10 text-black">
           <form onSubmit={handleSubmit} className="max-w-md ml-0 p-6">
             <div className="mb-4">
-              <label htmlFor="transferType" className="block text-gray-700 font-medium mb-2">Tipo de Transferência</label>
+              <label
+                htmlFor="tipoTransferencia"
+                className="block text-gray-700 font-medium mb-2"
+              >
+                Tipo de Transferência
+              </label>
               <select
-                id="transferType"
-                value={transferType}
-                onChange={(e) => setTransferType(e.target.value)}
+                id="tipoTransferencia"
+                value={tipoTransferencia}
+                onChange={(e) => setTipoTransferencia(e.target.value)}
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
               >
                 <option value="">Selecione o tipo</option>
@@ -74,18 +102,28 @@ export default function Transferencia() {
               </select>
             </div>
             <div className="mb-4">
-              <label htmlFor="date" className="block text-gray-700 font-medium mb-2">Data</label>
+              <label
+                htmlFor="data"
+                className="block text-gray-700 font-medium mb-2"
+              >
+                Data
+              </label>
               <input
                 type="date"
-                id="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
+                id="data"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
               />
             </div>
-            {transferType === "PIX" && (
+            {tipoTransferencia === "PIX" && (
               <div className="mb-4">
-                <label htmlFor="pixKey" className="block text-gray-700 font-medium mb-2">Chave PIX</label>
+                <label
+                  htmlFor="pixKey"
+                  className="block text-gray-700 font-medium mb-2"
+                >
+                  Chave PIX
+                </label>
                 <input
                   type="text"
                   id="pixKey"
@@ -96,10 +134,15 @@ export default function Transferencia() {
               </div>
             )}
             <div className="mb-4">
-              <label htmlFor="amount" className="block text-gray-700 font-medium mb-2">Valor</label>
+              <label
+                htmlFor="valor"
+                className="block text-gray-700 font-medium mb-2"
+              >
+                Valor
+              </label>
               <NumericFormat
-                value={amount}
-                onValueChange={(values: any) => setAmount(values.floatValue)}
+                value={valor}
+                onValueChange={(values: any) => setValor(values.floatValue)}
                 thousandSeparator="."
                 decimalSeparator=","
                 prefix="R$ "
@@ -109,52 +152,114 @@ export default function Transferencia() {
                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:border-blue-500"
               />
             </div>
-            <button type="submit" className="w-full bg-cyan-900 text-white font-bold py-2 rounded hover:bg-blue-600 transition">
+            <button
+              type="submit"
+              className={`w-full font-bold py-2 bg-cyan-900 rounded transition text-white  ${
+                isDisabled
+                  ? "cursor-not-allowed opacity-50"
+                  : " cursor-pointer hover:bg-cyan-800"
+              }`}
+              disabled={isDisabled}
+            >
               {isEditing ? "Salvar Edição" : "Efetuar Transação"}
             </button>
           </form>
         </div>
         <div className="w-54 h-54 absolute top-0 right-0 hidden md:block">
-          <Image src={imagem} alt="Imagem" className="w-full h-full object-contain" />
+          <Image
+            src={imagem}
+            alt="Imagem"
+            className="w-full h-full object-contain"
+          />
         </div>
       </div>
 
-      {/* Lista de Transferências */}
       <div className="relative bg-white rounded-lg flex flex-col justify-between p-4 pt-0 overflow-hidden">
-        <h1 className="text-2xl z-10 text-cyan-900 font-bold mb-6 m-6">Transferências Agendadas</h1>
+        <h1 className="text-2xl z-10 text-cyan-900 font-bold mb-6 m-6">
+          Transferências Agendadas
+        </h1>
         <div className="relative z-10 text-black m-6">
-          {Object.keys(transacoesPorMes).map((mes) => (
-            <div key={mes}>
-              <span className="block text-amber-500 text-sm font-bold mb-4">{mes}</span>
-              {transacoesPorMes[mes].map((transacao: any, index: number) => (
-                <div key={index} className="border-b border-gray-300 pb-4 mb-4">
-                  <div className="flex flex-col md:flex-row justify-between items-center">
-                    <div className="flex flex-col">
-                      <span className="block">Tipo: {transacao.tipo}</span>
-                      <span className="block">Valor: R$ {transacao.valor}</span>
-                      <span className="font-bold">Data: {transacao.data}</span>
-                    </div>
-                    <div className="flex flex-row space-x-4 mt-4 md:m-0">
-                      <button
-                        className="w-12 h-12 cursor-pointer bg-amber-500 rounded-full flex items-center justify-center hover:bg-teal-800 transition duration-300"
-                        onClick={() => handleEdit(transacao, index)}
-                      >
-                        <EditIcon className="text-white" />
-                      </button>
-                      <button
-                        className="w-12 h-12 cursor-pointer bg-amber-500 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300"
-                        onClick={() => handleDelete(index)}
-                      >
-                        <DeleteIcon className="text-white" />
-                      </button>
+          {transacoes.length === 0 ? (
+            <p className="text-gray-500 text-center">
+              Sem transferências agendadas
+            </p>
+          ) : (
+            Object.keys(transacoesPorMes).map((mes) => (
+              <div key={mes}>
+                <span className="block text-amber-500 text-sm font-bold mb-4">
+                  {mes}
+                </span>
+                {transacoesPorMes[mes].map((transacao: any, index: number) => (
+                  <div
+                    key={index}
+                    className="border-b border-gray-300 pb-4 mb-4"
+                  >
+                    <div className="flex flex-col md:flex-row justify-between items-center">
+                      <div className="flex flex-col">
+                        <span className="block">Tipo: {transacao.tipo}</span>
+                        <span className="block">
+                          Valor: {Number(transacao.valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+                        </span>
+                        <span className="font-bold">
+                          Data: {transacao.data ? transacao.data.split("-").reverse().join("/") : ""}
+                        </span>
+                      </div>
+                      <div className="flex flex-row space-x-4 mt-4 md:m-0">
+                        <button
+                          className="w-12 h-12 cursor-pointer bg-amber-500 rounded-full flex items-center justify-center hover:bg-teal-800 transition duration-300"
+                          onClick={() => handleEdit(transacao, index)}
+                        >
+                          <EditIcon className="text-white" />
+                        </button>
+                        <button
+                          className="w-12 h-12 cursor-pointer bg-amber-500 rounded-full flex items-center justify-center hover:bg-red-600 transition duration-300"
+                          onClick={() => handleDelete(index)}
+                        >
+                          <DeleteIcon className="text-white" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ))}
+                ))}
+              </div>
+            ))
+          )}
         </div>
       </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="success-modal-title"
+        aria-describedby="success-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 300,
+            bgcolor: "white",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: 2,
+            textAlign: "center",
+          }}
+        >
+          <div className="text-cyan-900 text-lg font-bold">Sucesso!</div>
+
+          <p id="success-modal-description" className="mt-6">
+            Transação efetuada com sucesso!
+          </p>
+          <button
+            onClick={handleClose}
+            className="w-full cursor-pointer bg-cyan-900 text-white font-bold py-2 rounded hover:bg-cyan-800 transition mt-6"
+          >
+            Fechar
+          </button>
+        </Box>
+      </Modal>
     </div>
   );
 }

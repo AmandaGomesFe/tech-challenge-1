@@ -17,8 +17,6 @@ export default function Configuracao() {
   useEffect(() => {
     async function fetchDados() {
       try {
-        // const response = await fetch("https://api.exemplo.com/usuario");
-        // const data = await response.json();
         const data = {
           nome: 'Joana',
           email :'joana@gmail.com',
