@@ -1,7 +1,14 @@
+'use client';
+
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Conta } from '@/entidades/Conta'; // ajuste o caminho conforme seu projeto
 
-export default function Saldo() {
+interface SaldoProps {
+  conta: Conta;
+}
+
+export default function Saldo({ conta }: SaldoProps) {
   const [mostrarSaldo, setMostrarSaldo] = useState(true);
 
   const toggleSaldo = () => {
@@ -16,7 +23,11 @@ export default function Saldo() {
           <div className="h-1 w-14 bg-orange-400 mb-4" />
           <p className="text-cyan-800 text-md md:text-xl mb-4">Conta Corrente</p>
           <p className="text-xl md:text-6xl font-semibold text-cyan-900">
-            {mostrarSaldo ? 'R$ 2.500,00' : '• • • •'}
+            {mostrarSaldo
+              ? `R$ ${conta.saldo.toLocaleString('pt-BR', {
+                  minimumFractionDigits: 2,
+                })}`
+              : '• • • •'}
           </p>
         </div>
         <button

@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
-import pixelsImg from "@/resources/Pixels3Colorido.png";
 import Card from "@/components/Card";
+import { Usuario } from "@/entities/usuario";
 
 // Modal simples
 const Modal = ({ isOpen, onClose, title, children }: any) => {
@@ -27,7 +26,7 @@ const Modal = ({ isOpen, onClose, title, children }: any) => {
   );
 };
 
-export default function Cartoes() {
+export default function Cartoes({ usuario }: { usuario: Usuario }) {
   const [modalAberto, setModalAberto] = useState(false);
   const [tipoModal, setTipoModal] = useState<null | "configurar" | "bloquear">(null);
   const [limite, setLimite] = useState(1000); // valor inicial
@@ -54,7 +53,7 @@ export default function Cartoes() {
               <p className="text-sm">Platinum</p>
             </div>
             <div>
-              <p className="text-sm">Joana Fonseca Gomes</p>
+              <p className="text-sm">{usuario.nome}</p>
               <p className="tracking-widest text-lg">••••••••</p>
             </div>
           </div>

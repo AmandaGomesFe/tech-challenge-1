@@ -10,6 +10,8 @@ import Saldo from "./Saldo";
 import Cartoes from "../cartoes/page";
 import Investimentos from "../investimentos/page";
 import OutrosServicos from "../outros-servicos/page";
+import { contaPrincipal, usuarioPrincipal } from "@/data/instancias";
+
 
 export default function App() {
   const [menuSelecionado, setMenuSelecionado] = useState("inicio");
@@ -26,7 +28,7 @@ export default function App() {
   const renderConteudoMeio = () => {
     switch (menuSelecionado) {
       case "inicio":
-        return <div><Cartoes/></div>;
+        return <div><Cartoes usuario={usuarioPrincipal} /></div>;
       case "transferencias":
         return <div><Transferencia/></div>;
       case "investimentos":
@@ -45,7 +47,7 @@ export default function App() {
       {/* Navbar Topo */}
       <nav className="px-6 py-4 flex justify-between items-center relative">
         {/* Nome do usuário */}
-        <span className="text-gray-800 font-semibold text-lg">Olá, Joana! :)</span>
+        <span className="text-gray-800 font-semibold text-lg">Olá, {usuarioPrincipal.nome}! :)</span>
 
         {/* Botão hamburger (mobile only) */}
         <button
@@ -136,7 +138,7 @@ export default function App() {
 
       {menuSelecionado !== 'configuracao' ? <>
         <main className="flex-grow rounded-lg min-h-[300px] overflow-hidden">
-          <Saldo/>
+          <Saldo conta={contaPrincipal} />
           {renderConteudoMeio()}
         </main>
         <aside className="hidden md:block w-64">
