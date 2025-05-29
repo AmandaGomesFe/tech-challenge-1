@@ -1,4 +1,4 @@
-export type TipoTransferencia = 'deposito' | 'saque' | 'transferencia';
+export type TipoTransferencia = 'deposito' | 'saque' | 'transferencia' | 'PIX';
 
 export class Transferencia {
   constructor(

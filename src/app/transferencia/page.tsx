@@ -5,8 +5,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import imagem from "@/resources/Pixels3Colorido.png";
 import { NumericFormat } from "react-number-format";
 import { Box, Modal } from "@mui/material";
+import { TipoTransferencia, Transferencia } from "@/entities/transferencia";
 
-export default function Transferencia() {
+export default function Transferencias() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -16,32 +17,29 @@ export default function Transferencia() {
   const [pixKey, setPixKey] = useState("");
   const [valor, setValor] = useState("");
   const isDisabled =
-    !tipoTransferencia ||
-    !data ||
-    !valor ||
-    (tipoTransferencia === "PIX" && !pixKey);
-  const [transacoes, setTransacoes] = useState<Array<any>>([]);
+  !tipoTransferencia || !data || !valor || (tipoTransferencia === "PIX" && !pixKey);
+  const [transacoes, setTransacoes] = useState<Array<Transferencia>>([]);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log({ tipoTransferencia, data, pixKey, valor });
+const handleSubmit = (e: any) => {
+  e.preventDefault();
 
-    const meses = [
-      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
-      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    ];
+  const meses = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
 
-    const mesNome = data ? meses[new Date(data).getMonth()] : "";
+  const dataObj = new Date(data);
+  const mesNome = meses[dataObj.getMonth()];
 
-    const novaTransacao = {
-      tipo: tipoTransferencia,
-      valor: valor,
-      data: data,
-      mes: mesNome,
-      pixKey: pixKey ? pixKey : null,
-    };
+  const novaTransacao = new Transferencia(
+    crypto.randomUUID(),
+    "conta-exemplo",
+    tipoTransferencia as TipoTransferencia,
+    Number(valor),
+    dataObj
+  );
 
-    setTransacoes((prevTransacoes) => [...prevTransacoes, novaTransacao]);
+    setTransacoes((prevTransacoes) => [...prevTransacoes, { ...novaTransacao, mes: mesNome }]);
     setIsEditing(false);
     setTipoTransferencia("");
     setData("");
@@ -51,11 +49,11 @@ export default function Transferencia() {
     handleOpen();
   };
 
-  const handleEdit = (transacao: any, index: number) => {
+  const handleEdit = (transacao: Transferencia, index: number) => {
     setTipoTransferencia(transacao.tipo);
-    setData(transacao.data);
+    setData(transacao.criadaEm.toISOString().split("T")[0]);
     setPixKey(transacao.tipo === "PIX" ? "Chave do PIX" : "");
-    setValor(transacao.valor);
+    setValor(transacao.valor.toString());
     setIsEditing(true);
 
     document.getElementById("formulario")?.scrollIntoView({ behavior: "smooth" });
@@ -201,7 +199,7 @@ export default function Transferencia() {
                           Valor: {Number(transacao.valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
                         </span>
                         <span className="font-bold">
-                          Data: {transacao.data ? transacao.data.split("-").reverse().join("/") : ""}
+                          Data: {transacao.criadaEm ? transacao.criadaEm.toLocaleDateString("pt-BR") : ""}
                         </span>
                       </div>
                       <div className="flex flex-row space-x-4 mt-4 md:m-0">
