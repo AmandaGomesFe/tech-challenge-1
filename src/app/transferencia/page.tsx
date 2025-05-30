@@ -19,27 +19,39 @@ export default function Transferencias() {
   const isDisabled =
   !tipoTransferencia || !data || !valor || (tipoTransferencia === "PIX" && !pixKey);
   const [transacoes, setTransacoes] = useState<Array<Transferencia>>([]);
+  const [editIndex, setEditIndex] = useState<number | null>(null);
 
-const handleSubmit = (e: any) => {
-  e.preventDefault();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
 
-  const meses = [
-    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
-    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-  ];
+    const [ano, mes, dia] = data.split("-").map(Number);
+    const dataObj = new Date(ano, mes - 1, dia);
 
-  const dataObj = new Date(data);
-  const mesNome = meses[dataObj.getMonth()];
+    const meses = [
+      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ];
+    const mesNome = meses[dataObj.getMonth()];
 
-  const novaTransacao = new Transferencia(
-    crypto.randomUUID(),
-    "conta-exemplo",
-    tipoTransferencia as TipoTransferencia,
-    Number(valor),
-    dataObj
-  );
+    const novaTransacao = new Transferencia(
+      crypto.randomUUID(),
+      "conta-exemplo",
+      tipoTransferencia as TipoTransferencia,
+      Number(valor),
+      dataObj
+    );
 
-    setTransacoes((prevTransacoes) => [...prevTransacoes, { ...novaTransacao, mes: mesNome }]);
+    if (editIndex !== null) {
+      setTransacoes((prevTransacoes) => 
+        prevTransacoes.map((transacao, index) => 
+          index === editIndex ? { ...novaTransacao, mes: mesNome } : transacao
+        )
+      );
+      setEditIndex(null);
+    } else {
+      setTransacoes((prevTransacoes) => [...prevTransacoes, { ...novaTransacao, mes: mesNome }]);
+    }
+
     setIsEditing(false);
     setTipoTransferencia("");
     setData("");
@@ -47,9 +59,10 @@ const handleSubmit = (e: any) => {
     setValor("");
 
     handleOpen();
-  };
 
+  }
   const handleEdit = (transacao: Transferencia, index: number) => {
+    setEditIndex(index);
     setTipoTransferencia(transacao.tipo);
     setData(transacao.criadaEm.toISOString().split("T")[0]);
     setPixKey(transacao.tipo === "PIX" ? "Chave do PIX" : "");
