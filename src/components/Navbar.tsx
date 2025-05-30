@@ -15,9 +15,8 @@ export default function Navbar({
   rolarPara,
 }: NavbarProps) {
   const [menuAberto, setMenuAberto] = useState(false);
-
   return (
-    <nav className="relative z-50">
+    <nav className="fixed z-50 top-0 left-0 bg-white w-full">
       {/* Topo da navbar */}
       <div className="flex flew-row justify-between items-center px-6 py-4">
         <Image src={Logo} alt="Logo" width={146} height={32} />

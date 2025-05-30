@@ -3,12 +3,12 @@
 import Card from "@/components/Card";
 import Image from "next/image";
 
-import iconeDoacao from "../../resources/iconeDoacoes.png";
-import iconeSeguros from "../../resources/iconeSeguros.png";
-import iconeCartoes from "../../resources/iconeCartoes.png";
-import iconeEmprestimos from "../../resources/iconeEmprestimo.png";
-import iconePix from "../../resources/iconePix.png";
-import iconeCelular from "../../resources/iconeCelular.png";
+import iconeDoacao from "@/resources/iconeDoacoes.png";
+import iconeSeguros from "@/resources/iconeSeguros.png";
+import iconeCartoes from "@/resources/iconeCartoes.png";
+import iconeEmprestimos from "@/resources/iconeEmprestimo.png";
+import iconePix from "@/resources/iconePix.png";
+import iconeCelular from "@/resources/iconeCelular.png";
 
 export default function OutrosServicos() {
     const IconButton = ({ icon, text }: { icon: any; text: string }) => (

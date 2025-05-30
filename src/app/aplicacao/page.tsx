@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { FiUser } from "react-icons/fi";
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
-import Configuracao from "../configuracao/page";
+import Configuracao from "./components/configuracao";
 import Extrato from "@/components/Extrato";
-import Transferencia from "../transferencia/page";
-import Saldo from "./Saldo";
-import Cartoes from "../cartoes/page";
-import Investimentos from "../investimentos/page";
-import OutrosServicos from "../outros-servicos/page";
+import Transferencia from "./components/transferencia";
+import Saldo from "./components/saldo";
+import Cartoes from "./components/cartoes";
+import Investimentos from "./components/investimentos";
+import OutrosServicos from "./components/outros-servicos";
 import { contaPrincipal, usuarioPrincipal } from "@/data/instancias";
 
 
@@ -43,7 +43,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen">
+    <div className="flex flex-col w-full min-h-screen ">
       {/* Navbar Topo */}
       <nav className="px-6 py-4 flex justify-between items-center relative">
         {/* Nome do usuário */}

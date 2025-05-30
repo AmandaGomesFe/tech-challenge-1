@@ -49,7 +49,7 @@ export default function Configuracao() {
 
   return (
     <Card background={'#CBCBCB'} titulo={'Minha Conta'}>
-      <div className="flex flex-col-reverse md:flex-row p-6 rounded-lg">
+      <div className="flex flex-col-reverse md:flex-row lg:p-6 rounded-lg">
         <div className="flex flex-col items-center md:items-start mt-4">
           <Image src={imagem} width={350} alt="Minha Conta"/>
         </div>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Conta } from '@/entidades/Conta'; // ajuste o caminho conforme seu projeto
+import { Conta } from '@/entities/conta'; // ajuste o caminho conforme seu projeto
 
 interface SaldoProps {
   conta: Conta;
