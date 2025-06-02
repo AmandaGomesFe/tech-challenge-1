@@ -24,7 +24,7 @@ Interface responsiva e baseada em componentes reutilizáveis
 ## 🚀 Como Executar Localmente
 ### Clone o repositório e instale as dependências:
 
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/AmandaGomesFe/tech-challenge-1.git
 
 cd seu-repositorio
 
